@@ -5,19 +5,21 @@ import Home from './Componets/Home';
 import CreateTodo from './Componets/CreateTodo';
 import NotFound from './Componets/NotFound ';
 import UserDatails from './Componets/UserDatails';
-import {ProfileDetils} from './Componets/ProfileDetils';
+import {ProfileDetils, UserData} from './Componets/ProfileDetils';
 
 function App() {
   return (
     <BrowserRouter>
+     <UserData>
       <Header />
       <Routes>
         <Route path = "/" element={<Home/>} />
         <Route path = "/create" element={<CreateTodo/>} />
         <Route path = "/profile" element={<ProfileDetils/>} />
-        <Route path = "/user" element={<UserDatails/>} />
+         <Route path = "/user" element={<UserDatails/>} />
         <Route component={NotFound} />
       </Routes>
+      </UserData>
     </BrowserRouter>
   );
 }

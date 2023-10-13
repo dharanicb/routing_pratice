@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { createContext, useState } from 'react'
 import { useNavigate} from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-export const ProfileDetils = () => {
+const UserContext = createContext([])
+let values;
+
+const ProfileDetils = ({ children }) => {
 const [profile, setProfile] = useState({name: "" , email : "" , phoneNo : "" , dateOfBirth : "" , occupation : "" ,address : ""})
 const [profileObject, setProfileObject] = useState([])
 
-console.log(profileObject)
+// console.log(profileObject)
 const navigate = useNavigate();
+
+
+values = profileObject
 
 
 const onSubmitDetails = (event) => {
@@ -21,15 +27,18 @@ const onSubmitDetails = (event) => {
         occupation : profile.occupation ,
         address : profile.address,
     }
-    console.log(newProfile)
+    // console.log(newProfile)
     setProfileObject(prev => [...prev, newProfile]) 
 }
 
 const onCheckDetails = () => {
   navigate("/user" , {state : profileObject})
 }
+localStorage.setItem("profile",JSON.stringify([...profileObject]))
 
-
+const rendering = () => {
+  console.log("rendering")
+}
 // useEffect (() => {
 //   navigate("/user" , {state : profileObject})
 // },[profileObject]) 
@@ -55,8 +64,18 @@ const onCheckDetails = () => {
         </div>  
     </form>
   )
+
 }
 
+
+const UserData = ({ children }) =>(
+  <UserContext.Provider value={values}>
+    {children}
+  </UserContext.Provider>
+)
+
+export {UserContext,ProfileDetils,UserData}
 // export ProfileDetils
 
-// console.log(UserContext)
+console.log(values)
+// ProfileDetils().rendering()

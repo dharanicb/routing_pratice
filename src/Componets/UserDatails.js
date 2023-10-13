@@ -1,23 +1,38 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react'
+import { UserContext } from './ProfileDetils';
+// import { useLocation } from 'react-router-dom';
 
+const list = JSON.parse(localStorage.getItem('profile'));
 
-
+// console.log(list)
 const UserDatails = () => {
-  const [data, setData] = useState(null)
-  const location = useLocation();
-  console.log(location.state);
+  const [data, setData] = useState()
+  const dataDetails = useContext(UserContext)
+  console.log(dataDetails)
+  // const location = useLocation();
   // const profileData = location.state;
+
+  // const renderProcess = () =>(
+  //   <tr key={data.id}>
+  //           <td>{data.name}</td>
+  //           <td>{data.email}</td>
+  //           <td>{data.phoneNo}</td>
+  //           <td>{data.dateOfBirth}</td>
+  //           <td>{data.occupation}</td>
+  //           <td>{data.address}</td>
+  //           {/* <td>{person.email}</td> */}
+  //         </tr>
+  // )
 
   // const data = useRef(profileData);
 
   useEffect(() => {
-    console.log("use effect")
-    setData(location.state)
+    setData(list)
   },[data])
 
-  console.log(data);
+  // console.log(data);
   return (
+    <div className='displays'>
     <table cellPadding = "10">
       <thead>
         <tr>
@@ -35,6 +50,10 @@ const UserDatails = () => {
           <tr key={person.id}>
             <td>{person.name}</td>
             <td>{person.email}</td>
+            <td>{person.phoneNo}</td>
+            <td>{person.dateOfBirth}</td>
+            <td>{person.occupation}</td>
+            <td>{person.address}</td>
             {/* <td>{person.email}</td> */}
           </tr>
         )): null
@@ -42,6 +61,7 @@ const UserDatails = () => {
         
       </tbody>
     </table>
+    </div>
   );
 }
 
